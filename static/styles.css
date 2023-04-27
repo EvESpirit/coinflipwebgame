@@ -1,0 +1,187 @@
+body {
+    background-color: #222;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    width: 300px;
+    background-color: #333;
+    padding: 20px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+.user-profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    margin-right: 10px;
+}
+
+.username {
+    font-weight: bold;
+    border: solid 1px goldenrod;
+    padding: 10px;
+    border-radius: 10px 20px;
+    margin-left: 15%;
+}
+
+label[for="bet_amount"] {
+    display: inline-block;
+    font-size: 40px;
+    margin-top: 6px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.menu {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.menu li {
+    margin-bottom: 10px;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+}
+
+.menu a:hover, .menu a:focus {
+    text-decoration: underline;
+}
+
+.container {
+    text-align: center;
+    max-width: 800px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+input, button {
+    font-size: 1.2rem;
+    margin: 0.5rem;
+    padding: 0.5rem;
+}
+
+input[type="number"] {
+    width: 100px;
+    text-align: center;
+}
+
+.toss-results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.toss-result {
+    background-color: #333;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    width: 20%;
+    border-radius: 5px;
+    font-size: 0.8rem; /* Adjust the font size of the results here */
+}
+
+.toss-result strong {
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+.toss-result:nth-child(even) {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+button[type="button"] {
+    cursor: pointer;
+    border: none;
+    background-color: #4caf50;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin: 0.5rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+th {
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+button[type="button"]:hover {
+    background-color: #45a049;
+}
+button[type="submit"] {
+    cursor: pointer;
+    border: none;
+    background-color: #4caf50;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    padding: 0.5rem 0;
+    font-size: 1.1rem;
+    color: #ff5722;
+}
