@@ -3,6 +3,7 @@ A coin flip web game I put too much effort into. Why did I do this? Good questio
 
 # Installation
 #1: Obtain a copy of this repository by clicking on th green "Code" button and selecting "Download ZIP"
+
 #2: ```pip install -r requirements.txt```
 
 # Running
