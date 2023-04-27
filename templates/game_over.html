@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Game Over</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <meta http-equiv="refresh" content="5;url={{ url_for('play_game') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Game Over</h1>
+        <p>Your final balance is: ${{ balance|round(2, 'floor') }}</p>
+        <p>Redirecting to a new game in <span id="timer">5</span> seconds...</p>
+    </div>
+
+    <script>
+        let countdown = 5;
+        let timerElement = document.getElementById("timer");
+        setInterval(function() {
+            countdown--;
+            timerElement.innerText = countdown;
+        }, 1000);
+    </script>
+</body>
+</html>

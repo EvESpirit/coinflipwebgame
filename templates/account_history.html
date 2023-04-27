@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1>Account History</h1>
+
+        <!-- Display last 20 coin toss results -->
+        <h2>Last 20 Coin Toss Results</h2>
+        <div class="toss-results">
+            {% for i, result in enumerate(coin_toss_results) %}
+                <div class="toss-result">
+                    <div><strong>No.:</strong> {{ i + 1 }}</div>
+                    <div><strong>Coin Result:</strong> {{ result['coin_result'] }}</div>
+                    <div><strong>Bet Amount:</strong> ${{ result['bet_amount']|round(4, 'floor') }}</div>
+                    <div><strong>Balance:</strong> ${{ result['balance']|round(4, 'floor') }}</div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Display balance graph -->
+        <h2>Balance Graph</h2>
+        <div class="slider-container">
+    <div class="slider">
+<input type="range" id="y-axis-min" min="0" max="100" step="any" value="0">
+<input type="number" id="y-axis-min-input" min="0" max="10000" step="any" value="0">
+<output id="y-axis-min-output"></output>
+    </div>
+    <div class="slider">
+        <label for="x-axis-min">X-Axis Min:</label>
+        <input type="range" id="x-axis-min" min="0" max="100" step="any" value="0">
+        <input type="number" id="x-axis-min-input" min="0" max="10000" step="any" value="0">
+        <output id="x-axis-min-output"></output>
+    </div>
+    <div class="slider">
+        <label for="x-axis-max">X-Axis Max:</label>
+        <input type="range" id="x-axis-max" min="0" max="100" step="any" value="100">
+        <input type="number" id="x-axis-max-input" min="0" max="10000" step="any" value="100">
+        <output id="x-axis-max-output"></output>
+    </div>
+            <div class="slider">
+                <label for="y-axis-max">Y-Axis Max:</label>
+                <input type="range" id="y-axis-max" min="0" max="1000" step="any" value="100">
+                <input type="number" id="y-axis-max-input" min="0" max="10000" step="any" value="100">
+                <output id="y-axis-max-output"></output>
+            </div>
+        </div>
+        <canvas id="balance-graph"></canvas>
+
+        <!-- Include Chart.js library -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <!-- Add custom CSS -->
+        <style>
+            .container {
+                padding-top: 2rem;
+                padding-bottom: 3rem;
+            }
+
+.slider-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin-right: 1rem;
+}
+
+
+.slider input[type=range] {
+    width: 100%;
+}
+        </style>
+
+        <!-- Initialize the balance graph -->
+        <script>
+            const balanceGraphData = {{ balance_graph_data|safe }};
+            const ctx = document.getElementById('balance-graph').getContext('2d');
+            const balanceGraph = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: balanceGraphData.map(d => d.x),
+                    datasets: [{
+                        label: 'Balance',
+                        data: balanceGraphData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        },
+                        x: {
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('y-axis-max').addEventListener('input', function() {
+            const yAxisMax = parseFloat(this.value);
+            document.getElementById('y-axis-max-output').textContent = yAxisMax;
+            balanceGraph.options.scales.y.max = yAxisMax;
+            balanceGraph.update();
+});
+
+document.getElementById('y-axis-min').addEventListener('input', function() {
+  const yAxisMin = parseFloat(this.value);
+  document.getElementById('y-axis-min-output').textContent = yAxisMin;
+  balanceGraph.options.scales.y.min = yAxisMin;
+  balanceGraph.update();
+  document.getElementById('y-axis-min-input').value = yAxisMin;
+});
+
+document.getElementById('y-axis-max').addEventListener('input', function() {
+  const yAxisMax = parseFloat(this.value);
+  document.getElementById('y-axis-max-output').textContent = yAxisMax;
+  balanceGraph.options.scales.y.max = yAxisMax;
+  balanceGraph.update();
+  document.getElementById('y-axis-max-input').value = yAxisMax;
+});
+
+document.getElementById('x-axis-min').addEventListener('input', function() {
+  const xAxisMin = parseFloat(this.value);
+  document.getElementById('x-axis-min-output').textContent = xAxisMin;
+  balanceGraph.options.scales.x.min = xAxisMin;
+  balanceGraph.update();
+  document.getElementById('x-axis-min-input').value = xAxisMin;
+});
+
+document.getElementById('x-axis-max').addEventListener('input', function() {
+  const xAxisMax = parseFloat(this.value);
+  document.getElementById('x-axis-max-output').textContent = xAxisMax;
+  balanceGraph.options.scales.x.max = xAxisMax;
+  balanceGraph.update();
+  document.getElementById('x-axis-max-input').value = xAxisMax;
+});
+
+        // Initialize slider output values
+        document.getElementById('y-axis-min-output').textContent = document.getElementById('y-axis-min').value;
+        document.getElementById('x-axis-min-output').textContent = document.getElementById('x-axis-min').value;
+        document.getElementById('x-axis-max-output').textContent = document.getElementById('x-axis-max').value;
+        document.getElementById('y-axis-max-output').textContent = document.getElementById('y-axis-max').value;
+    </script>
+</div>
+{% endblock %}

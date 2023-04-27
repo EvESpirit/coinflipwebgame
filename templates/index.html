@@ -1,0 +1,93 @@
+<!doctype html>
+{% extends "base.html" %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Coin Flip Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Coin Flip Game</h1>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <p>Your current account balance is: ${{ balance|round(4, 'floor') }}</p>
+        <div>
+        <canvas id="balanceChart"></canvas>
+        </div>
+
+        {% if coin_result %}
+            <img src="{{ url_for('static', filename=coin_result + '.png') }}" alt="{{ coin_result }}" width="100">
+        {% endif %}
+
+        <form method="post" action="{{ url_for('play_game') }}">
+            <label for="bet_amount">$</label>
+            <input type="number" name="bet_amount" id="bet_amount" min="0" step="0.0001" placeholder="Amount" value="{{ bet_amount }}" required>
+            <button type="submit" name="action" value="flip">Flip the coin</button>
+            <button type="submit" name="action" value="all_in" formnovalidate>All in</button>
+            <button type="submit" name="action" value="quit" formnovalidate>Quit</button>
+            <input type="hidden" name="action" value="refresh">
+            <button type="button" id="double-bet">2X</button>
+            <button type="button" id="half-bet">1/2</button>
+        </form>
+
+
+    </div>
+<script>
+    const rawBalanceHistory = {{ balance_history | safe }};
+    const balanceHistory = rawBalanceHistory && rawBalanceHistory.length > 0 ? rawBalanceHistory : [{{ balance }}];
+    const labels = balanceHistory.map((_, i) => i + 1);
+
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Balance',
+            data: balanceHistory,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+    const balanceChartElement = document.getElementById('balanceChart');
+    const balanceChart = new Chart(balanceChartElement, config);
+    const doubleBetButton = document.getElementById('double-bet');
+    const halfBetButton = document.getElementById('half-bet');
+    const betAmountInput = document.getElementById('bet_amount');
+
+    doubleBetButton.addEventListener('click', () => {
+    betAmountInput.value *= 2;
+});
+
+    halfBetButton.addEventListener('click', () => {
+    betAmountInput.value /= 2;
+});
+</script>
+
+</body>
+{% endblock %}
+</html>
