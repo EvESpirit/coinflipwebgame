@@ -7,7 +7,7 @@ A coin flip web game I put too much effort into. Why did I do this? Good questio
 
 #2: ```pip install -r requirements.txt```
 
-#3: Access the game by going to 127.0.0.1 in a web browser.
+#3: Access the game by going to ```127.0.0.1``` in a web browser.
 
 # Running
 
