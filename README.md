@@ -7,11 +7,11 @@ A coin flip web game I put too much effort into. Why did I do this? Good questio
 
 #2: ```pip install -r requirements.txt```
 
-#3: Access the game by going to ```127.0.0.1``` in a web browser.
-
 # Running
 
-```python app.py```
+#1: ```python app.py```
+
+#2: Access the game by going to ```127.0.0.1``` in a web browser.
 
 # Running (for plebs)
 #1: Go to ```https://github.com/EvESpirit/coinflipwebgame/releases``` and download the latest .exe.
