@@ -16,4 +16,4 @@ A coin flip web game I put too much effort into. Why did I do this? Good questio
 # Running (for plebs)
 #1: Go to ```https://github.com/EvESpirit/coinflipwebgame/releases``` and download the latest .exe.
 
-#2: Access the game by going to 127.0.0.1 in a web browser.
+#2: Access the game by going to ```127.0.0.1``` in a web browser.
